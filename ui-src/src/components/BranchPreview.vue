@@ -31,9 +31,9 @@ export default {
     item: {
       name: String,
       created: Number,
-      endpoint: String
-    }
-  }
+      endpoint: String,
+    },
+  },
 };
 </script>
 

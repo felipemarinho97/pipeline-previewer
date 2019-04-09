@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container v-loading.fullscreen="isMrLoading || isBrLoading">
     <el-header>
       <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">Recentes</el-menu-item>
@@ -19,50 +19,63 @@
 </template>
 
 <script>
-import axios from "axios";
-import Preview from "./Preview.vue";
-import BranchPreview from "./BranchPreview.vue";
+import axios from 'axios';
+import Preview from './Preview.vue';
+import BranchPreview from './BranchPreview.vue';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Preview,
-    BranchPreview
+    BranchPreview,
   },
   props: {
-    msg: String
+    msg: String,
   },
   data() {
     return {
       mrs: null,
       branchs: null,
-      activeIndex: 1
+      activeIndex: 1,
+      isMrLoading: true,
+      isBrLoading: true,
     };
   },
   methods: {
     handleSelect(i) {
       this.activeIndex = i;
-    }
+    },
   },
   mounted() {
-    axios
-      .get("/api/mr/list")
-      .then(
-        response =>
-          (this.mrs = response.data.merge_requests.sort(
-            (a, b) => a.created < b.created
-          ))
-      );
+    this.isMrLoading = true;
+    this.isBrLoading = true;
 
     axios
-      .get("/api/branch/list")
-      .then(
-        response =>
-          (this.branchs = response.data.branchs.sort(
-            (a, b) => a.created < b.created
-          ))
-      );
-  }
+      .get('/api/mr/list')
+      .then(response => {
+        this.isMrLoading = false;
+
+        this.mrs = response.data.merge_requests.sort(
+          (a, b) => a.updated < b.updated
+        );
+      })
+      .catch(err => {
+        this.isMrLoading = false;
+      });
+
+    axios
+      .get('/api/branch/list')
+      .then(response => {
+        this.isBrLoading = false;
+
+        this.branchs = response.data.branchs.sort(
+          (a, b) => a.created < b.created
+        );
+      })
+      .catch(err => {
+        this.isBrLoading = false;
+      });
+  },
 };
 </script>
 

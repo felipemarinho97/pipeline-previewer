@@ -4,21 +4,37 @@
       <div>
         <i style="font-size: 3rem; margin-right: 10px" class="el-icon-news"></i>
       </div>
-      <div>
-        <span style="color: #409EFF; font-size: large">Merge Request !{{ item.name }}</span>
+      <div style="flex-grow: 1">
+        <span style="color: #409EFF; font-size: large">
+          !{{ item.name }} - {{ item.gitlab.title }}
+          <el-tag
+            :type="item.gitlab.state === 'merged' ? 'danger' : item.gitlab.state === 'opened' ? 'success' : 'info' "
+            size="small"
+          >{{ item.gitlab.state }}</el-tag>
+        </span>
         <br>
         <span
-          :title="item.created | moment('dddd, D MMMM YYYY, HH:mm:ss a')"
+          :title="item.updated | moment('dddd, D MMMM YYYY, HH:mm:ss a')"
           style="color: #909399"
-        >Criado: {{ item.created | moment('from') }} atrás</span>
+        >Modificado: {{ item.updated | moment('from') }} atrás</span>
         <br>
         <span>
           Disponível em:
           <a
             class="v-link"
             style="color: #409EFF;"
-            :href="'https://gitlab.com/projeto-petrobras/frontend/merge_requests/' + item.name"
+            :href=" item.gitlab.web_url"
           >GitLab</a>
+        </span>
+        <span style="display: flex; margin-left: auto; margin-top: auto; float: inline-end">
+          <a
+            class="v-link"
+            style="color: #409EFF; font-size: 0.9rem; display: contents"
+            :href="item.gitlab.author.web_url"
+          >
+            <img class="v-avatar" :src="item.gitlab.author.avatar_url">
+            {{ item.gitlab.author.name }}
+          </a>
         </span>
       </div>
     </div>
@@ -31,9 +47,9 @@ export default {
     item: {
       name: String,
       created: Number,
-      endpoint: String
-    }
-  }
+      endpoint: String,
+    },
+  },
 };
 </script>
 
@@ -49,6 +65,7 @@ export default {
 
 .card-body {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 1em;
   text-align: left;
@@ -62,6 +79,12 @@ export default {
 .basic-shadow,
 .card-body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
+
+.v-avatar {
+  border-radius: 100%;
+  max-width: 1.5rem;
+  padding: 0 0.5rem;
 }
 </style>
 
