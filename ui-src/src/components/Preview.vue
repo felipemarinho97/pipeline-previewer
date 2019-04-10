@@ -26,12 +26,8 @@
             :href=" item.gitlab.web_url"
           >GitLab</a>
         </span>
-        <span style="display: flex; margin-left: auto; margin-top: auto; float: inline-end">
-          <a
-            class="v-link"
-            style="color: #409EFF; font-size: 0.9rem; display: contents"
-            :href="item.gitlab.author.web_url"
-          >
+        <span class="author-container">
+          <a class="v-link author-link" :href="item.gitlab.author.web_url">
             <img class="v-avatar" :src="item.gitlab.author.avatar_url">
             {{ item.gitlab.author.name }}
           </a>
@@ -59,6 +55,19 @@ export default {
   text-decoration: none;
 }
 
+.author-container {
+  display: flex;
+  margin-left: auto;
+  margin-top: auto;
+  float: right;
+}
+
+.author-link {
+  color: #409eff;
+  font-size: 0.9rem;
+  display: contents;
+}
+
 .card-body:hover {
   transition: all 0.2s linear;
 }
@@ -84,6 +93,7 @@ export default {
 .v-avatar {
   border-radius: 100%;
   max-width: 1.5rem;
+  max-height: 1.5rem;
   padding: 0 0.5rem;
 }
 </style>

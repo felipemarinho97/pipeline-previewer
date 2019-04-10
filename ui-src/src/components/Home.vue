@@ -56,10 +56,10 @@ export default {
         this.isMrLoading = false;
 
         this.mrs = response.data.merge_requests.sort(
-          (a, b) => a.updated < b.updated
+          (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
         );
       })
-      .catch(err => {
+      .catch(() => {
         this.isMrLoading = false;
       });
 
@@ -72,7 +72,7 @@ export default {
           (a, b) => a.created < b.created
         );
       })
-      .catch(err => {
+      .catch(() => {
         this.isBrLoading = false;
       });
   },
