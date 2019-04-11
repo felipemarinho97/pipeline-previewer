@@ -12,6 +12,7 @@
   "dependencies": {
     "@vue/cli": "^3.5.1",
     "express": "^4.16.4",
+    "github-api": "^3.0.0",
     "gitlab": "^4.5.1"
   },
   "devDependencies": {
