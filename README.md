@@ -28,3 +28,30 @@ Simply write your deploy script using the integration technology of your choice.
 #### Branchs
 
 Almost the same thing, but you'll have to copy the build files into the `/public/branch/${branch_name}` directory.
+
+## Configuration
+
+To have the **PR**/**MR** status, author and names displayed and the application integrated with your git provider (GitHub or Gitlab), you'll have to write a file called `config.json` with your project info like the following example:
+
+```json
+{
+  "projects": [
+    {
+      "name": "frontend-react",
+      "owner": "felipemarinho97",
+      "provider": "gitlab",
+      "token": "xxxxxxxxxxxxxxxxxx",
+      "projectId": "xxxxxx"
+    },
+    {
+      "name": "glossario-ufcg",
+      "owner": "OpenDevUFCG",
+      "provider": "github",
+      "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "default": "glossario-ufcg"
+}
+```
+
+You have to generate a _token_, see here [for GitHub](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and here [for Gitlab](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html).
