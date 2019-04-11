@@ -9,7 +9,14 @@
     </el-header>
     <div v-if="activeIndex != 2">
       <div v-bind:key="item.name" style="margin: .8rem;" v-for="item in mrs">
-        <Preview v-if="activeIndex == 1 || activeIndex == 3" v-bind:item="item"/>
+        <GitLabMRPreview
+          v-if="item.gitlab !== undefined && (activeIndex == 1 || activeIndex == 3)"
+          v-bind:item="item"
+        />
+        <GitHubMRPreview
+          v-if="item.github !== undefined && (activeIndex == 1 || activeIndex == 3)"
+          v-bind:item="item"
+        />
       </div>
     </div>
     <div v-bind:key="item.name" style="margin: .8rem;" v-for="item in branchs">
@@ -20,13 +27,15 @@
 
 <script>
 import axios from 'axios';
-import Preview from './Preview.vue';
+import GitLabMRPreview from './GitLabMRPreview.vue';
+import GitHubMRPreview from './GitHubMRPreview.vue';
 import BranchPreview from './BranchPreview.vue';
 
 export default {
   name: 'Home',
   components: {
-    Preview,
+    GitLabMRPreview,
+    GitHubMRPreview,
     BranchPreview,
   },
   props: {
@@ -51,7 +60,7 @@ export default {
     this.isBrLoading = true;
 
     axios
-      .get('/api/mr/list')
+      .get('http://localhost:8080/api/mr/list')
       .then(response => {
         this.isMrLoading = false;
 
