@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "name": "frontend-react",
+      "owner": "felipemarinho97",
+      "provider": "gitlab",
+      "token": "xxxxxxxxxxxxxxxxxx",
+      "projectId": "xxxxxx"
+    },
+    {
+      "name": "glossario-ufcg",
+      "owner": "OpenDevUFCG",
+      "provider": "github",
+      "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "default": "glossario-ufcg"
+}
