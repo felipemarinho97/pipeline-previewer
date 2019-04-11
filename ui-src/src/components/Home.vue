@@ -60,7 +60,7 @@ export default {
     this.isBrLoading = true;
 
     axios
-      .get('http://localhost:8080/api/mr/list')
+      .get('/api/mr/list')
       .then(response => {
         this.isMrLoading = false;
 
